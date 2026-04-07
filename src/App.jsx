@@ -77,8 +77,28 @@ function App() {
   const score = getOverallScore();
 
   useEffect(() => {
-    const timer = setTimeout(() => setAnimatedScore(score), 300);
-    return () => clearTimeout(timer);
+    const duration = 2000;
+    const start = performance.now();
+    let raf;
+
+    const tick = (now) => {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / duration, 1);
+      // ease-out curve to match the CSS transition
+      const eased = 1 - Math.pow(1 - t, 3);
+      setAnimatedScore(Math.round(eased * score));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+
+    // small delay to match the bar's start
+    const timer = setTimeout(() => {
+      raf = requestAnimationFrame(tick);
+    }, 50);
+
+    return () => {
+      clearTimeout(timer);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, [score]);
 
   const filtered =
