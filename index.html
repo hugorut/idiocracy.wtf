@@ -6,6 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Tracking how close reality is to Mike Judge's Idiocracy. It's got electrolytes." />
     <title>Are We Idiocracy Yet?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Luckiest+Guy&family=Russo+One&family=Press+Start+2P&family=Permanent+Marker&display=swap" rel="stylesheet" />
+    <style>
+      html { background: #0a0a0f; }
+      html:not(.fonts-ready) #root { visibility: hidden; }
+    </style>
+    <script>
+      Promise.all([
+        document.fonts.load('1em "Bangers"'),
+        document.fonts.load('1em "Luckiest Guy"'),
+        document.fonts.load('1em "Russo One"'),
+        document.fonts.load('1em "Press Start 2P"'),
+        document.fonts.load('1em "Permanent Marker"'),
+      ]).then(function () {
+        document.documentElement.classList.add('fonts-ready');
+      });
+      // Failsafe: show content after 3s even if fonts fail to load
+      setTimeout(function () {
+        document.documentElement.classList.add('fonts-ready');
+      }, 3000);
+    </script>
   </head>
   <body>
     <div id="root"></div>
